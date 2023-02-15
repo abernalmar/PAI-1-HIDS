@@ -4,7 +4,7 @@ import threading
 from report import *
 
 global dicc
-dicc=saveFiles()
+dicc = save_files()
 
 FILES = os.listdir('./resources')
 
