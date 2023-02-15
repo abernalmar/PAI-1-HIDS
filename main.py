@@ -1,7 +1,7 @@
 from save_files import *
 import os
 import threading
-import time
+from report import *
 
 global dicc
 dicc=saveFiles()
@@ -9,13 +9,13 @@ dicc=saveFiles()
 FILES = os.listdir('./resources')
 
 
-def timer(temp):
-    while True:
-        for file in FILES:
-            check_data = check_digest(file, dicc)
-            if len(check_data) > 0:
-                write_log(check_data)
-        time.sleep(temp)  
+def timer():
+    threading.Timer(2, timer).start()
+    for file in FILES:
+        check_data = check_digest(file, dicc)
+        if len(check_data) > 0:
+            write_log(check_data)
 
-t = threading.Thread(target=timer(2))
-t.start()
+remove_log_content()
+timer()
+populate_html()

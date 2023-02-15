@@ -13,30 +13,33 @@ def get_name(file):
 def get_extension(file):
     return os.path.splitext(file)[1]
 
-
-def saveFiles():
-    for file in FILES:
-        file_path = './files/' + file
-        extension = get_extension(file)
-
-def saveFiles(dict):
-    DICC_HASH[extension][name] = digest(file_path)
+def save_files():
+    for f in FILES:
+        file_path = './resources/' + f
+        extension = get_extension(f)
+        name = get_name(f)
+        if not DICC_HASH.get(extension):
+            DICC_HASH[extension] = {name: digest(file_path)}
+        else:
+            DICC_HASH[extension][name] = digest(file_path)
     return DICC_HASH
 
 #Verifica si el archivo especificado tiene el mismo hash SHA-256 que el valor hash almacenado en el diccionario.
 def check_digest(file, dicc):
     file_path = './resources/' + file
-    name = get_name(file)
     extension = get_extension(file)
+    name = get_name(file)
     actual_hexdigest = digest(file_path)
     original_hexdigest = dicc[extension][name]
-    #Si los valores hash no coinciden, la función devuelve una lista que contiene la marca de tiempo actual, el nombre del archivo y la cadena hash calculada
     if actual_hexdigest != original_hexdigest:
-        dateTimeObj = datetime.now()
-        timestamp = dateTimeObj.strftime("%d-%b-%Y (%H:%M:%S)")
+        date_time_obj = datetime.now()
+        timestamp = date_time_obj.strftime("%d-%b-%Y (%H:%M:%S)")
         return [timestamp, name+extension, actual_hexdigest]
     return []
 
+def remove_log_content():
+    with open("changes.log", "w") as f:
+        f.truncate()
 
 #Escribe una entrada en un archivo de registro ('changes.log') que contiene la fecha y hora de la comprobación, el nombre del archivo comprobado y el resultado de la comprobación
 def write_log(check_data):

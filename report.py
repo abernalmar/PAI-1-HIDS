@@ -1,4 +1,4 @@
-import time
+import threading
 import datetime
 from datetime import datetime
 
@@ -27,23 +27,22 @@ def create_table_html(headers,report, data):
     return(pre_existing_template)
 
 #Se puede refactorizar
-def populate_html(period):
-    while True:
-        changes=[]
-        for linea in reversed(list(open("changes.log"))):
-            change=linea.split(", ")
-            date_time_obj = datetime.strptime(change[0], "%d-%b-%Y (%H:%M:%S)")
-            actual_date= datetime.now().strftime("%d-%b-%Y (%H:%M:%S)")
-            actual_date_obj = datetime.strptime(actual_date, "%d-%b-%Y (%H:%M:%S)")
-            diff=actual_date_obj - date_time_obj
-            if (diff.seconds <= period):
-                changes.append(change)
+def populate_html():
+    threading.Timer(PERIOD, populate_html).start()
+    changes=[]
+    for linea in reversed(list(open("changes.log"))):
+        change=linea.split(", ")
+        date_time_obj = datetime.strptime(change[0], "%d-%b-%Y (%H:%M:%S)")
+        actual_date= datetime.now().strftime("%d-%b-%Y (%H:%M:%S)")
+        actual_date_obj = datetime.strptime(actual_date, "%d-%b-%Y (%H:%M:%S)")
+        diff=actual_date_obj - date_time_obj
+        if (diff.seconds<=PERIOD):
+            changes.append(change)
 
-        name=str(datetime.today().strftime("%d-%b-%Y"))+".html"
-        file = open(PATH_REPORTS + name, "w")
-        file.write(create_table_html(["Timestamp","File Name","Last Hash Calculated"], name[:-4], changes))
-        file.close()
-        time.sleep(period) 
+    if len(changes)>0:
+            name=str(datetime.today().strftime("%d-%b-%Y-%H-%M-%S"))+".html"
+            f = open(PATH_REPORTS + name, "w")
+            f.write(create_table_html(["Timestamp","File Name","Last Hash Calculated"], name[:-4], changes))
+            f.close()
 
-
-populate_html(PERIOD)
+populate_html()
