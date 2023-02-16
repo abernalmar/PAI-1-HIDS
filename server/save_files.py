@@ -3,8 +3,8 @@ import os
 from datetime import datetime
 
 # Global variables
-FILES = os.listdir('./resources')
-global DICC_HASH
+CURRENT_PATH = os.path.dirname(os.path.abspath(__file__))
+FILES = os.listdir(CURRENT_PATH+"/files")
 DICC_HASH = dict()
 alg_cript = input("Algoritmo criptográfico a usar (SHA-256 (default), SHA-512, SHA3-256, SHA3-512): ")
 
@@ -16,7 +16,7 @@ def get_extension(file):
 
 def save_files():
     for f in FILES:
-        file_path = './resources/' + f
+        file_path = CURRENT_PATH + "/resources/" + f
         extension = get_extension(f)
         name = get_name(f)
         if not DICC_HASH.get(extension):
@@ -39,19 +39,19 @@ def check_digest(file, dicc):
     return []
 
 def remove_log_content():
-    with open("changes.log", "w") as f:
+    with open(CURRENT_PATH+"/changes.log", "w") as f:
         f.truncate()
 
 #Escribe una entrada en un archivo de registro ('changes.log') que contiene la fecha y hora de la comprobación, el nombre del archivo comprobado y el resultado de la comprobación
 def write_log(check_data):
     try:
-        with open('changes.log', 'r+') as f:
+        with open(CURRENT_PATH+'/changes.log', 'r+') as f:
             line_found = any(check_data[1] + ', ' + check_data[2] + '\n' in line for line in f)
             if not line_found:
                 f.seek(0, os.SEEK_END)
                 f.write(check_data[0] + ', ' + check_data[1] + ', ' + check_data[2] + '\n')
     except:
-        with open('changes.log', 'a') as f:
+        with open(CURRENT_PATH+'/changes.log', 'a') as f:
             f.write(check_data[0] + ', ' + check_data[1] + ', ' + check_data[2] + '\n')
 
 #La función digest(path) calcula el hash SHA-256 de un archivo que se encuentra en la ruta especificada por el parámetro path.

@@ -2,11 +2,21 @@ from save_files import *
 import os
 import threading
 from report import *
+from time import time
+import sys, signal
 
-global dicc
+def sig_handler(sig, frame):
+    print("\n\n[!] Exiting...\n")
+    sys.exit(0)
+
+signal.signal(signal.SIGINT, sig_handler)
+start_time = time()
+
 dicc = save_files()
+elapsed_time = time() - start_timeprint("Elapsed time: %.10f seconds." % elapsed_time)
 
-FILES = os.listdir('./resources')
+current_path = os.path.dirname(os.path.abspath(__file__))
+FILES = os.listdir(current_path+"/files")
 
 
 def timer():

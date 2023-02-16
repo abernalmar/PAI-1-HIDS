@@ -1,8 +1,10 @@
 import threading
 import datetime
 from datetime import datetime
+import os
 
-PATH_REPORTS="./reports/"
+current_path=os.path.dirname(os.path.abspath(__file__))
+
 PERIOD = 20
 
 #Esta la podemos refatorizar para no repetir código
@@ -30,7 +32,7 @@ def create_table_html(headers,report, data):
 def populate_html():
     threading.Timer(PERIOD, populate_html).start()
     changes=[]
-    for linea in reversed(list(open("changes.log"))):
+    for linea in reversed(list(open(current_path+"/changes.log"))):
         change=linea.split(", ")
         date_time_obj = datetime.strptime(change[0], "%d-%b-%Y (%H:%M:%S)")
         actual_date= datetime.now().strftime("%d-%b-%Y (%H:%M:%S)")
@@ -41,8 +43,6 @@ def populate_html():
 
     if len(changes)>0:
             name=str(datetime.today().strftime("%d-%b-%Y-%H-%M-%S"))+".html"
-            f = open(PATH_REPORTS + name, "w")
+            f = open(current_path + "/reports/" + name, "w")
             f.write(create_table_html(["Timestamp","File Name","Last Hash Calculated"], name[:-4], changes))
-            f.close()
-
-populate_html()
+            file.close()
