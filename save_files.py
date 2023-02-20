@@ -2,7 +2,6 @@ import hashlib
 import os
 from datetime import datetime
 
-# Global variables
 CURRENT_PATH = os.path.dirname(os.path.abspath(__file__))
 FILES = os.listdir(CURRENT_PATH+"/resources")
 DICC_HASH = dict()
@@ -38,6 +37,7 @@ def check_digest(file, dicc):
         return [timestamp, name+extension, actual_hexdigest]
     return []
 
+#Borra el contenido de changes.log
 def remove_log_content():
     with open(CURRENT_PATH+"/changes.log", "w") as f:
         f.truncate()

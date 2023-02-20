@@ -1,7 +1,6 @@
 from save_files import *
 import os
 import threading
-from report import *
 from time import time
 import sys, signal
 
@@ -13,6 +12,7 @@ signal.signal(signal.SIGINT, sig_handler)
 start_time = time()
 
 dicc = save_files()
+#Tiempo transcurrido
 elapsed_time = time() - start_time
 print("Elapsed time: %.10f seconds." % elapsed_time)
 
@@ -29,4 +29,3 @@ def timer():
 
 remove_log_content()
 timer()
-populate_html()
