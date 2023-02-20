@@ -90,12 +90,12 @@ def write_txt_ok(data):
         file_extension=get_extension(data['FILE'])
         file_hash_from_server= SERVER_DICC[file_extension][file_name]
 
-    with open(communication_path, 'a') as f:
-        f.write("-- SERVER -- \n")
-        f.write("VERIFICATION SUCCESSFUL\n")
-        f.write("HASH_FROM_SERVER: "+file_hash_from_server+'\n')
-        f.write("MAC_FROM_SERVER: "+ challenge(file_hash_from_server, token_from_client) +'\n')
-        f.close()
+        with open(communication_path, 'a') as f:
+            f.write("-- SERVER -- \n")
+            f.write("VERIFICATION SUCCESSFUL\n")
+            f.write("HASH_FROM_SERVER: "+file_hash_from_server+'\n')
+            f.write("MAC_FROM_SERVER: "+ challenge(file_hash_from_server, token_from_client) +'\n')
+            f.close()
     else:
         write_txt_failed_replay()
 
@@ -112,7 +112,7 @@ def write_txt_failed_mod(data):
 
 
 def write_txt_failed_not_exist():
-    with open('communication_path, 'a') as f:
+    with open(communication_path, 'a') as f:
         f.write("-- SERVER -- \n")
         f.write("VERIFICATION FAILED, FILE DOES NOT EXIST\n")
         f.close()
@@ -136,7 +136,7 @@ def main():
     else:
         print("Waiting for connection...", end="\r")
 
- t= threading.Thread(target=timer)
+    t= threading.Thread(target=timer)
     t.start() 
     
 while True:
