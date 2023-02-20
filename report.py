@@ -9,7 +9,43 @@ PERIOD = 20
 #Crea una tabla HTML con los encabezados, la fecha del informe y los datos proporcionados.
 #Cada fila de datos se representa como una fila. Crea el HTML que se mostrará en los informes generados por el script.
 def create_table_html(headers,report, data):
-    pre_existing_template="<!DOCTYPE html>" + "<html>" + "<head>" + "<style>"
+    pre_existing_template="""
+    <!DOCTYPE html> 
+        <html> 
+            <head>
+                <style>
+                    table, th, td {border: 1px solid black;border-collapse: collapse;border-spacing:8px}
+                </style>
+            </head>
+            <body>
+    """
+    pre_existing_template+= "<strong>" + "REPORT DATE: " + report + "</strong>" 
+    pre_existing_template+="""
+                <table style='width:50%'>
+                    <tr>
+    """
+    for header_name in headers:
+        pre_existing_template+="<th style='background-color:#3DBBDB;width:85;color:white'>" + header_name + "</th>"
+    pre_existing_template+="</tr>"
+    for d in data:
+        sub_template="<tr style='text-align:center'>"
+        sub_template+="<td>" + str(d[0]) + "</td>"
+        sub_template+="<td>" + str(d[1]) + "</td>"
+        sub_template+="<td>" + str(d[2]) + "</td>"
+        sub_template+="<tr/>"
+        pre_existing_template+=sub_template
+        
+    pre_existing_template+="""
+                </table> 
+            </body> 
+        </html>
+    """
+    return(pre_existing_template)
+
+
+
+
+
     pre_existing_template+="table, th, td {border: 1px solid black;border-collapse: collapse;border-spacing:8px}"
     pre_existing_template+="</style>" + "</head>"
     pre_existing_template+="<body>" + "<strong>" + "REPORT DATE: " + report + "</strong>" 
@@ -25,7 +61,7 @@ def create_table_html(headers,report, data):
         sub_template+="<td>" + str(d[2]) + "</td>"
         sub_template+="<tr/>"
         pre_existing_template+=sub_template
-    pre_existing_template+="</table>" + "</body>" + "</html>"
+    pre_existing_template+="</table> </body> </html>"
     return(pre_existing_template)
 
 #Busca en el archivo changes.log los cambios que han ocurrido en los últimos 20 segundos.
