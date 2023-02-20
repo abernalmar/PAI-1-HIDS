@@ -8,7 +8,7 @@ from datetime import datetime
 
 CURRENT_PATH = os.path.dirname(os.path.abspath(__file__))
 communication_path = CURRENT_PATH + '/../communication.txt'
-FILES = os.listdir(CURRENT_PATH+"/files")
+FILES = os.listdir(CURRENT_PATH+"/resources")
 
 SERVER_DICC = save_files()
 tokens=[]

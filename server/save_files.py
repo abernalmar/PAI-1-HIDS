@@ -4,7 +4,7 @@ from datetime import datetime
 
 # Global variables
 CURRENT_PATH = os.path.dirname(os.path.abspath(__file__))
-FILES = os.listdir(CURRENT_PATH+"/files")
+FILES = os.listdir(CURRENT_PATH+"/resources")
 DICC_HASH = dict()
 alg_cript = input("Algoritmo criptográfico a usar (SHA-256 (default), SHA-512, SHA3-256, SHA3-512): ")
 
