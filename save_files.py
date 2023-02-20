@@ -70,3 +70,23 @@ def digest(path,alg):
             file_hash.update(fb) 
             fb = f.read(BLOCK_SIZE)
     return file_hash.hexdigest()
+
+'''
+Este archivo es un script en Python que se utiliza para calcular y verificar los hash de los archivos
+en una carpeta llamada "resources".
+
+-Define variables globales para la ruta actual del script, la lista de archivos en la carpeta "resources",
+un diccionario vacío y el algoritmo criptográfico que se usará para calcular el hash.
+-Define dos funciones, una para obtener el nombre del archivo sin su extensión y otra para obtener la
+extensión del archivo.
+-Define una función para guardar los hash de los archivos en el diccionario global.
+-Define una función para verificar si el hash de un archivo es el mismo que el valor hash almacenado 
+en el diccionario global.
+-Define una función para eliminar el contenido del archivo "changes.log".
+-Define una función para escribir una entrada en el archivo "changes.log" que contiene la fecha y hora
+de la comprobación, el nombre del archivo comprobado y el resultado de la comprobación.
+-Define una función llamada "digest" que calcula el hash de un archivo utilizando el algoritmo criptográfico
+especificado.
+En general, este archivo se utiliza para calcular y verificar los hash de los archivos en la carpeta 
+"resources" y mantener un registro de cualquier cambio detectado en el archivo.
+'''
