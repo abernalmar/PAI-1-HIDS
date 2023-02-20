@@ -13,7 +13,8 @@ signal.signal(signal.SIGINT, sig_handler)
 start_time = time()
 
 dicc = save_files()
-elapsed_time = time() - start_timeprint("Elapsed time: %.10f seconds." % elapsed_time)
+elapsed_time = time() - start_time
+print("Elapsed time: %.10f seconds." % elapsed_time)
 
 current_path = os.path.dirname(os.path.abspath(__file__))
 FILES = os.listdir(current_path+"/resources")
