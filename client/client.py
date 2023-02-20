@@ -76,3 +76,23 @@ for file in FILES:
           print(Style.RESET_ALL + filename + " →" , Fore.GREEN + "INTEGRITY OK")
         else:
           print(Style.RESET_ALL + filename+" →" , Fore.RED + "INTEGRITY FAIL")
+
+'''
+Este programa se encarga de realizar la integridad de los archivos de la carpeta "resources" 
+utilizando diferentes algoritmos criptográficos, y luego se comunica con un servidor para 
+verificar la integridad de los archivos. Para hacer esto, el programa sigue los siguientes pasos:
+
+-Obtiene el directorio actual y los archivos en la carpeta "resources".
+-Solicita al usuario que ingrese el algoritmo criptográfico que se utilizará para la integridad (SHA-256, SHA-512, SHA3-256 o SHA3-512).
+-Define una función para generar un token único utilizando la biblioteca uuid.
+-Define una función para calcular el hash del archivo utilizando el algoritmo seleccionado.
+-Define una función para generar un código de autenticación (MAC) a partir del hash y el token utilizando 
+operaciones como rotación a la izquierda, concatenación y reversión de cadenas.
+-Para cada archivo en la carpeta "resources", el programa calcula el hash y el MAC y los escribe en un 
+archivo "communication.txt" para enviarlos al servidor.
+-El programa espera a recibir una respuesta del servidor en el archivo "communication.txt", incluyendo 
+el hash calculado por el servidor y el MAC generado por el servidor.
+-El programa verifica si el hash y el MAC recibidos del servidor coinciden con los que se calcularon 
+localmente. Si la verificación falla, se informa al usuario que la integridad ha fallado para ese archivo. 
+Si la verificación es exitosa, se informa al usuario que la integridad es correcta para ese archivo.
+'''

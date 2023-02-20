@@ -46,3 +46,20 @@ def populate_html():
             f = open(current_path + "/reports/" + name, "w")
             f.write(create_table_html(["Timestamp","File Name","Last Hash Calculated"], name[:-4], changes))
             file.close()
+
+'''
+Este programa es un script de Python que tiene dos funciones principales: create_table_html y populate_html.
+
+La primera función, create_table_html, es una función que toma como entrada una lista de encabezados, 
+una cadena de fecha y hora (el "informe"), y una lista de datos. Esta función crea una tabla HTML con los
+encabezados, la fecha del informe y los datos proporcionados. Cada fila de datos se representa como una 
+fila en la tabla HTML. Esta función se utiliza para crear el HTML que se mostrará en los informes generados
+por el script.
+
+La segunda función, populate_html, es una función que se ejecuta periódicamente y se encarga de buscar en el
+archivo changes.log los cambios que han ocurrido en los últimos 20 segundos. Si hay cambios que cumplen con
+esta condición, se crea un archivo HTML en la carpeta reports que muestra una tabla con los detalles de los
+cambios. Esta función utiliza la función create_table_html para crear la tabla HTML para los informes. 
+La función populate_html se ejecuta cada 20 segundos utilizando un temporizador de subproceso para 
+actualizar continuamente el archivo HTML de informes.
+'''
