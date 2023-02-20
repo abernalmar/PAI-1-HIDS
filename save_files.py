@@ -2,6 +2,7 @@ import hashlib
 import os
 from datetime import datetime
 
+
 CURRENT_PATH = os.path.dirname(os.path.abspath(__file__))
 FILES = os.listdir(CURRENT_PATH+"/resources")
 DICC_HASH = dict()
