@@ -35,3 +35,4 @@ remove_log_content()
 timer()
 populate_html()
 
+

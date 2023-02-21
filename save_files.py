@@ -1,5 +1,6 @@
 import hashlib
 import os
+import random
 from datetime import datetime
 
 
@@ -76,3 +77,42 @@ def digest(path,alg):
             file_hash.update(fb) 
             fb = f.read(BLOCK_SIZE)
     return file_hash.hexdigest()
+
+hash_dict = save_files()
+
+def verify_file_cloud(challenge, extension, filename, proof):
+
+    first_three_digits = proof[:3]
+    summed_digits = int(first_three_digits, 16) + challenge
+    challenge_response = int(hash_dict[extension][filename][:3], 16) + challenge
+
+    # Verificar la respuesta
+    if challenge_response == summed_digits:
+        return True
+    else:
+        return False
+
+# Ejemplo buen hash
+challenge = random.randint(0, 100)  #Genera un reto aleatorio
+filename = 'text'
+extension = '.txt'
+proof = '403982b3df390ddbb963b681dd9c4d183a3b396f24f1c5d653da4e7ecd2357f0'  #Hash correcto del text.txt
+
+print('Prueba de posesión para text.txt con hash correcto:')
+if verify_file_cloud(challenge, extension, filename, proof):
+    print("Prueba de posesión correcta")
+else:
+    print("Prueba de posesión ha fallado")
+
+
+# Ejemplo mal hash
+challenge = random.randint(0, 100)  #Genera un reto aleatorio
+filename = 'text'
+extension = '.txt'
+proof = 'a1b2c3d4'  #Este hash no es el correcto, por lo que la respuesta será: La prueba de posesión ha fallado
+
+print('Prueba de posesión para text.txt con hash incorrecto:')
+if verify_file_cloud(challenge, extension, filename, proof):
+    print("Prueba de posesión correcta")
+else:
+    print("Prueba de posesión ha fallado")
