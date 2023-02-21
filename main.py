@@ -4,7 +4,7 @@ import threading
 from time import time
 import sys, signal
 from report import *
-from reportMensual import *
+from report_mensual import *
 
 #Para poder salir del programa al hacer Ctrl + C en la terminal
 def sig_handler(sig, frame):
