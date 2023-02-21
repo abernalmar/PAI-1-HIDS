@@ -3,7 +3,7 @@ import threading
 import os
 
 current_path = os.path.dirname(os.path.abspath(__file__))
-PERIOD = 10  #10 segundos es 1 día
+PERIOD = 300 
 
 
 #Crea una tabla HTML con los encabezados, la fecha del informe y los datos proporcionados.
@@ -19,7 +19,7 @@ def create_table_html(headers,report, data):
             </head>
             <body>
     """
-    pre_existing_template+= "<strong>" + "REPORT DATE: " + report + "</strong>" 
+    pre_existing_template+= "<strong>" + "REPORT MENSUAL: " + report + "</strong>" 
     pre_existing_template+="""
                 <table style='width:50%'>
                     <tr>
@@ -42,10 +42,10 @@ def create_table_html(headers,report, data):
     """
     return(pre_existing_template)
 
-#Busca en el archivo changes.log los cambios que han ocurrido en los últimos 20 segundos.
+#Busca en el archivo changes.log los cambios que han ocurrido en el último mes (300 segundos).
 #Si hay cambios, se crea un archivo HTML en la carpeta reports que muestra una tabla con los detalles de los cambios.
-def populate_html():
-    threading.Timer(PERIOD, populate_html).start()
+def populate_html_mensual():
+    threading.Timer(PERIOD, populate_html_mensual).start()
     changes=[]
     for linea in reversed(list(open(current_path+"/changes.log"))):
         change=linea.split(", ")
@@ -58,6 +58,6 @@ def populate_html():
             
     if len(changes)>0:
         name=str(datetime.today().strftime("%d-%b-%Y-%H-%M-%S"))+".html"
-        file = open(current_path + "/reports/" + name, "w")
+        file = open(current_path + "/reports_mensual/" + name, "w")
         file.write(create_table_html(["Timestamp","File Name","Last Hash Calculated"], name[:-4], changes))
         file.close()

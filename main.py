@@ -4,6 +4,7 @@ import threading
 from time import time
 import sys, signal
 from report import *
+from reportMensual import *
 
 #Para poder salir del programa al hacer Ctrl + C en la terminal
 def sig_handler(sig, frame):
@@ -34,5 +35,6 @@ def timer():
 remove_log_content()
 timer()
 populate_html()
+populate_html_mensual()
 
 
