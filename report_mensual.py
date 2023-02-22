@@ -3,7 +3,7 @@ import threading
 import os
 
 current_path = os.path.dirname(os.path.abspath(__file__))
-PERIOD = 300 
+PERIOD = 300
 
 
 #Crea una tabla HTML con los encabezados, la fecha del informe y los datos proporcionados.
