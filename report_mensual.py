@@ -57,7 +57,13 @@ def populate_html_mensual():
             changes.append(change)
             
     if len(changes)>0:
+        folder_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "resources")
+        total_files  = sum(os.path.isfile(os.path.join(folder_path, f)) for f in os.listdir(folder_path))
+        modified_files = len(changes)
+        percentage_modified = round((modified_files / total_files) * 100, 2)
+        stats_line = f"<p>Modified files: {modified_files} ({percentage_modified}% of total)</p>"
+        
         name=str(datetime.today().strftime("%d-%b-%Y-%H-%M-%S"))+".html"
         file = open(current_path + "/reports_mensual/" + name, "w")
-        file.write(create_table_html(["Timestamp","File Name","Last Hash Calculated"], name[:-4], changes))
+        file.write(create_table_html(["Timestamp","File Name","Last Hash Calculated"], name[:-4], changes) + stats_line)
         file.close()
